@@ -5,7 +5,7 @@ from shapely.geometry import Polygon
 
 def get_coping_data(uploaded_file=None):
     if uploaded_file is None:  # 업로드된 파일이 없으면 기본 파일 읽기        
-        df = pd.read_excel("coping_input.xlsx", sheet_name=0, header=None)
+        df = pd.read_excel("coping_input.xlsx", sheet_name=0, header=None, engine="openpyxl")
     else:  # 업로드된 파일이 있으면 그 파일 읽기
         df = pd.read_excel(uploaded_file, sheet_name=0, header=None)
     arr = df.fillna('').to_numpy().astype(str)  # ✅ Numpy 배열 변환 (성능 향상)    

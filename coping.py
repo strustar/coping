@@ -25,7 +25,7 @@ else:  # 로컬 Windows 환경
     plotter = pv.Plotter(off_screen=True)
     pv.OFF_SCREEN = False
 
-plotter = pv.Plotter(window_size=[1600, 950], border=False)  # plotter.set_background("black")
+plotter = pv.Plotter(window_size=[1600, 1100], border=False)  # plotter.set_background("black")
 # ✅ 상단 여백 제거하는 CSS 적용
 st.markdown( """
     <style>
