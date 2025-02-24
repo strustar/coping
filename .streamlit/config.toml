@@ -1,0 +1,21 @@
+[theme]
+primaryColor = "#FF4B4B"  # 주 색상
+backgroundColor = "#FFFF00"  # 배경색
+secondaryBackgroundColor = "#F0F2F6"  # 보조 배경색
+textColor = "#262730"  # 텍스트 색상
+font = "sans serif"  # 폰트
+
+[server]
+headless = true
+port = 8501
+enableCORS = false
+enableXsrfProtection = false
+healthCheckTimeout = 300
+
+
+# 다크모드 설정
+[theme.dark]
+primaryColor = "#FF4B4B"
+backgroundColor = "#FFFF00"
+secondaryBackgroundColor = "#262730"
+textColor = "#FAFAFA"
