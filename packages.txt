@@ -6,3 +6,4 @@ libosmesa6-dev
 libxcursor-dev
 libxinerama-dev
 xvfb
+libgl1-mesa-glx

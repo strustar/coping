@@ -5,11 +5,16 @@ from copingData import get_coping_data
 from copingRebar import coping_rebar
 from stpyvista import stpyvista
 import time
-import numpy as np
+import os
 
 # Streamlit 페이지 설정
 st.set_page_config(page_title="3D Coping Model", layout="wide")
 plotter = pv.Plotter(window_size=[1600, 950], border=False)  # plotter.set_background("black")
+# Windows 환경 설정
+os.environ["PYVISTA_OFF_SCREEN"] = "true"
+pv.OFF_SCREEN = True
+os.environ["PYVISTA_OFF_SCREEN"] = "True"
+os.environ["VTK_SKIP_OPENGL_VERSION_CHECK"] = "1"
 # pv.global_theme.allow_empty_mesh = True
 
 # ✅ 상단 여백 제거하는 CSS 적용
