@@ -9,13 +9,8 @@ import os
 import warnings
 import platform
 
-import pyvista
-pyvista.start_xvfb()
-
 # Streamlit 페이지 설정
 st.set_page_config(page_title="3D Coping Model", layout="wide")
-plotter = pv.Plotter(window_size=[1600, 950], border=False)  # plotter.set_background("black")
-# 경고 메시지 무시
 warnings.filterwarnings("ignore", category=UserWarning)
 
 # 환경별 설정
@@ -30,6 +25,7 @@ else:  # 로컬 Windows 환경
     plotter = pv.Plotter(off_screen=True)
     pv.OFF_SCREEN = False
 
+plotter = pv.Plotter(window_size=[1600, 950], border=False)  # plotter.set_background("black")
 # ✅ 상단 여백 제거하는 CSS 적용
 st.markdown( """
     <style>
@@ -83,7 +79,7 @@ with st.sidebar:
 
     col = st.columns([1.5, 1])
     with col[0]:
-        camera_projection = st.radio(":orange[카메라 투영*]", ["orthographic", "perspective"], horizontal=True, index=1)
+        camera_projection = st.radio(":orange[카메라 투영*]", ["orthographic", "perspective"], horizontal=True, index=0)
     with col[1]:
         model_symmetry = st.checkbox(":orange[전체 모델 (대칭)]", value=False)
     st.write('###### :blue[*도면은 orthographic(직교 뷰)로 봐야 하지만, 현재 웹 표시는 원근 뷰만 지원 (다소 찌글어 보일수 있음)]')
@@ -143,11 +139,12 @@ def common_plot(num):
         plotter.add_mesh(volumes.combine(), color=volume_color, opacity=volume_opacity)
         plotter.add_mesh(lines.combine(), color=line_color, opacity=volume_opacity, line_width=volume_line_width)
     else:
-        plotter.add_mesh(volumes[num], color=volume_color, opacity=volume_opacity)
+        plotter.add_mesh(volumes[num], color=volume_color, opacity=volume_opacity, label='coping')
         plotter.add_mesh(lines[num], color=line_color, opacity=volume_opacity, line_width=volume_line_width)
 
     add_arrow_axes(plotter)
     set_camera_view(plotter, camera_projection, camera_position)
+    plotter.legend_visibility = True
     stpyvista(plotter)
 
 
