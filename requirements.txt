@@ -1,0 +1,6 @@
+streamlit==1.37.1
+numpy==1.26.4
+pandas==2.2.2
+shapely==2.0.7
+stpyvista==0.1.4
+pyvista==0.44.2
