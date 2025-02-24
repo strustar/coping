@@ -6,16 +6,25 @@ from copingRebar import coping_rebar
 from stpyvista import stpyvista
 import time
 import os
+import warnings
+import platform
 
 # Streamlit 페이지 설정
 st.set_page_config(page_title="3D Coping Model", layout="wide")
 plotter = pv.Plotter(window_size=[1600, 950], border=False)  # plotter.set_background("black")
-# Windows 환경 설정
-os.environ["PYVISTA_OFF_SCREEN"] = "true"
-pv.OFF_SCREEN = True
-os.environ["PYVISTA_OFF_SCREEN"] = "True"
-os.environ["VTK_SKIP_OPENGL_VERSION_CHECK"] = "1"
-# pv.global_theme.allow_empty_mesh = True
+# 경고 메시지 무시
+warnings.filterwarnings("ignore", category=UserWarning)
+
+# 환경별 설정
+if platform.system() == 'Linux':  # Streamlit Cloud 환경
+    os.environ["PYVISTA_OFF_SCREEN"] = "true"
+    os.environ["PYVISTA_USE_IPYVTK"] = "true"
+    os.environ["DISPLAY"] = ":99"
+    os.environ["MESA_GL_VERSION_OVERRIDE"] = "3.3"
+    pv.OFF_SCREEN = True
+    pv.start_xvfb()
+else:  # 로컬 Windows 환경
+    pv.OFF_SCREEN = False
 
 # ✅ 상단 여백 제거하는 CSS 적용
 st.markdown( """
