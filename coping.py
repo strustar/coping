@@ -9,6 +9,9 @@ import os
 import warnings
 import platform
 
+import pyvista
+pyvista.start_xvfb()
+
 # Streamlit 페이지 설정
 st.set_page_config(page_title="3D Coping Model", layout="wide")
 plotter = pv.Plotter(window_size=[1600, 950], border=False)  # plotter.set_background("black")
@@ -24,6 +27,7 @@ if platform.system() == 'Linux':  # Streamlit Cloud 환경
     pv.OFF_SCREEN = True
     pv.start_xvfb()
 else:  # 로컬 Windows 환경
+    plotter = pv.Plotter(off_screen=True)
     pv.OFF_SCREEN = False
 
 # ✅ 상단 여백 제거하는 CSS 적용
@@ -46,7 +50,7 @@ st.markdown( """
 )
 
 # ✅ 탭 생성
-tab1, tab2, tab3, tab4 = st.tabs(["🏗️ 전체 뷰", "🔲 코핑 뷰", "🏛️ 기둥 뷰", "⬛ 기초 뷰"])
+tab1, tab2, tab3, tab4 = st.tabs(["🏗️ 전체 뷰", "🧱 코핑 뷰", "🏛️ 기둥 뷰", "⬛ 기초 뷰"])
 
 start_time = time.time()
 with st.sidebar:    
