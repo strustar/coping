@@ -8,10 +8,12 @@ import time
 import os
 import warnings
 import platform
+from pyvista.core.errors import PyVistaFutureWarning
 
 # Streamlit 페이지 설정
 st.set_page_config(page_title="3D Coping Model", layout="wide")
 warnings.filterwarnings("ignore", category=UserWarning)
+warnings.filterwarnings("ignore", category=PyVistaFutureWarning)
 
 # 환경별 설정
 if platform.system() == 'Linux':  # Streamlit Cloud 환경
@@ -138,6 +140,8 @@ def common_plot(num):
     if num == 100:        
         plotter.add_mesh(volumes.combine(), color=volume_color, opacity=volume_opacity)
         plotter.add_mesh(lines.combine(), color=line_color, opacity=volume_opacity, line_width=volume_line_width)
+        # plotter.enable_parallel_projection()
+        # plotter.export_html(f"visualization_{num}.html")
     else:
         plotter.add_mesh(volumes[num], color=volume_color, opacity=volume_opacity, label='coping')
         plotter.add_mesh(lines[num], color=line_color, opacity=volume_opacity, line_width=volume_line_width)
@@ -145,7 +149,7 @@ def common_plot(num):
     add_arrow_axes(plotter)
     set_camera_view(plotter, camera_projection, camera_position)
     plotter.legend_visibility = True
-    stpyvista(plotter)
+    stpyvista(plotter)    
 
 
 with tab1:  # 전체 뷰
